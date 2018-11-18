@@ -17,8 +17,8 @@ Examples:
 
 
 ### Visual
-comming soon
+coming soon
 
 Configuration
 -------------
-comming soon
+coming soon
