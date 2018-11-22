@@ -20,7 +20,6 @@ endfunction
 
 function! Generate_writer()
   let save_pos = getpos('.')
-
   try
     let l:func = Get_input()
   catch
@@ -29,6 +28,7 @@ function! Generate_writer()
   endtry
 
   :execute 'normal [['
+  let start_line_number = line('.')
   let s:comment_escape = '\v^[^#]*'
   let s:block_openers = '\zs<class>'
   let s:start_pattern = s:comment_escape . s:block_openers
@@ -43,9 +43,10 @@ function! Generate_writer()
           \ 'attr_writer ' . l:temp,
           \ ]
     call append(line('.'), l:setter)
-    " search in a range block
-	else
     exec 'normal ' . (start_line_number) . 'GV' . len(start_line_number+1) . 'j='
+	else
+
+    " search in a range block
     execute "normal A" . l:func . "\<Esc>"
   end
 
