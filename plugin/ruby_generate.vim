@@ -38,16 +38,15 @@ function! Generate_writer()
   call searchpair(s:start_pattern, 'attr_writer' ,s:end_pattern, s:flags, s:skip_pattern)
 
   if empty(matchstr(getline('.'), '\<attr_writer\>'))
+    let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
+    let l:setter = [
+          \ 'attr_writer ' . l:temp,
+          \ ]
+    call append(line('.'), l:setter)
     " search in a range block
-    execute "normal A" . l:func . "\<Esc>"
-		return
 	else
-		let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
-		let l:setter = [
-					\ 'attr_writer ' . l:temp,
-					\ ]
-		call append(line('.'), l:setter)
-		exec 'normal ' . (start_line_number) . 'GV' . len(start_line_number+1) . 'j='
+    exec 'normal ' . (start_line_number) . 'GV' . len(start_line_number+1) . 'j='
+    execute "normal A" . l:func . "\<Esc>"
   end
 
 	call setpos('.', save_pos)
