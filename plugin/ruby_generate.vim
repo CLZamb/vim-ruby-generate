@@ -48,7 +48,7 @@ function! Generate_writer()
 	else
 
     " search in a range block
-    execute "normal A" . l:func . "\<Esc>"
+    execute "normal A, " . l:func . "\<Esc>"
   end
 
 	call setpos('.', save_pos)
