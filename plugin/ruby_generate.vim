@@ -39,7 +39,7 @@ function! Generate_writer()
 
   if empty(matchstr(getline('.'), '\<attr_writer\>'))
     " search in a range block
- 		execute 'normal A ' . l:func . '\<Esc>'
+    execute "normal A" . name . "\<Esc>"
 		return
 	else
 		let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
