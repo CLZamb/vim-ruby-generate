@@ -38,6 +38,7 @@ function! Generate_writer()
   call searchpair(s:start_pattern, 'attr_writer' ,s:end_pattern, s:flags, s:skip_pattern)
 
   if empty(matchstr(getline('.'), '\<attr_writer\>'))
+    :execute 'normal [['
     let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
     let l:setter = [
           \ 'attr_writer ' . l:temp,
