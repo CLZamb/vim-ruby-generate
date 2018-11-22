@@ -10,7 +10,7 @@ endfunction
 function! Get_input()
   let methods = input('method name: ')
 
-  if !exists('l:func') || empty(l:func)
+  if !exists('methods') || empty(methods)
     throw 'invalid method name'
     return
   endif
