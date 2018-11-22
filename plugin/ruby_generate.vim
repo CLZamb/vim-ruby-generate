@@ -1,52 +1,56 @@
 " File: ruby_generate.vim
-" Author:
+" Author: Cristian Zambrano
 " Description:
 " Last Modified:
 au BufNewFile,BufRead *.rb set filetype=ruby
 
-function! Generate_getter()
-  let save_pos = getpos('.')
-  " if lastline <
-  "   let lastline = line('$')
-  "  endif
-  let l:func = input('method name: ')
+function! s:ruby_determine_variables()
+endfunction
+
+function! Get_input()
+  let methods = input('method name: ')
 
   if !exists('l:func') || empty(l:func)
-    echo 'invalid method name'
+    throw 'invalid method name'
     return
   endif
 
-  :execute 'normal ][k'
-  let start_line_number = line('.')
-  let l:setter = [
-        \ '',
-        \ 'def ' . l:func,
-        \ '@' . l:func,
-        \ 'end',
-        \ ]
-  call append(line('.'), l:setter)
-  exec 'normal ' . (start_line_number+2) . 'GV' . len(start_line_number+4) . 'j='
-  call setpos('.', save_pos)
+  return methods
 endfunction
 
 function! Generate_writer()
   let save_pos = getpos('.')
-  let l:func = input('method(s) name: ')
 
-  if !exists('l:func') || empty(l:func)
-    echo 'invalid method name'
+  try
+    let l:func = Get_input()
+  catch
+    echo v:exception
     return
-  endif
+  endtry
 
   :execute 'normal [['
-  let start_line_number = line('.')
-  let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
-  let l:setter = [
-        \ 'attr_writer ' . l:temp,
-        \ ]
-  call append(line('.'), l:setter)
-  exec 'normal ' . (start_line_number) . 'GV' . len(start_line_number+1) . 'j='
-  call setpos('.', save_pos)
+  let s:comment_escape = '\v^[^#]*'
+  let s:block_openers = '\zs<class>'
+  let s:start_pattern = s:comment_escape . s:block_openers
+  let s:end_pattern = s:comment_escape . '\zs<end>'
+  let s:skip_pattern = 'getline(".") =~ "\\v\\S\\s<(if|unless)>\\s\\S"'
+  let s:flags = 'W'
+  call searchpair(s:start_pattern, 'attr_writer' ,s:end_pattern, s:flags, s:skip_pattern)
+
+  if empty(matchstr(getline('.'), '\<attr_writer\>'))
+    " search in a range block
+ 		execute 'normal A ' . l:func . '\<Esc>'
+		return
+	else
+		let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
+		let l:setter = [
+					\ 'attr_writer ' . l:temp,
+					\ ]
+		call append(line('.'), l:setter)
+		exec 'normal ' . (start_line_number) . 'GV' . len(start_line_number+1) . 'j='
+  end
+
+	call setpos('.', save_pos)
 endfunction
 
 function! Generate_reader()
@@ -92,6 +96,14 @@ function! Generate_setter()
 endfunction
 
 function! Generate_accessor()
+  " Move backwards to the method definiton if you are not already on the
+  " correct line
+  if empty(matchstr(getline("."), '\< attr_accessor\>'))
+    exec "?\\<attr_accessor\\>"
+  endif
+
+  execute "normal A(" . name . ")\<Esc>"
+
   let save_pos = getpos('.')
   let l:func = input('method(s) name: ')
 
