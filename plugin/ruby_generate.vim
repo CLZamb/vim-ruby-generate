@@ -9,8 +9,6 @@ endif
 
 let g:loaded_ruby_generate = 1
 
-au BufNewFile,BufRead *.rb set filetype=ruby
-
 command! GenerateGetter       :call generate#getter#Getter()
 command! GenerateSetter       :call generate#setter#Setter()
 command! GenerateReader       :call generate#readers#Reader()
