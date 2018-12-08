@@ -24,7 +24,6 @@ Configuration
 chossing the position inside of class
 default layout
 ```vim
-```vim
     let g:ruby_generatePositions = {
           \ 'getter':        'bottom',
           \ 'setter':        'bottom',
@@ -35,4 +34,4 @@ default layout
           \ 'privateVars':   'bottom',
           \ 'protectedVars': 'bottom',
           \ }
-          ```
+ ```
