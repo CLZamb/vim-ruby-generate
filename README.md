@@ -23,13 +23,16 @@ Configuration
 -------------
 chossing the position inside of class
 default layout
-  let g:ruby_generatePositions = {
-        \ 'getter':        'bottom',
-        \ 'setter':        'bottom',
-        \ 'writer':        'top',
-        \ 'reader':        'top',
-        \ 'accessor':      'top',
-        \ 'publicVars':    'bottom',
-        \ 'privateVars':   'bottom',
-        \ 'protectedVars': 'bottom',
-        \ }
+```vim
+```vim
+    let g:ruby_generatePositions = {
+          \ 'getter':        'bottom',
+          \ 'setter':        'bottom',
+          \ 'writer':        'top',
+          \ 'reader':        'top',
+          \ 'accessor':      'top',
+          \ 'publicVars':    'bottom',
+          \ 'privateVars':   'bottom',
+          \ 'protectedVars': 'bottom',
+          \ }
+          ```
