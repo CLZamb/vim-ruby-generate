@@ -8,6 +8,7 @@ if exists('g:loaded_ruby_generate')
 endif
 
 let g:loaded_ruby_generate = 1
+:call general#RubyGenerateSetUpVariables()
 
 command! GenerateGetter       :call generate#getter#Getter()
 command! GenerateSetter       :call generate#setter#Setter()
@@ -15,8 +16,8 @@ command! GenerateReader       :call generate#readers#Reader()
 command! GenerateWriter       :call generate#writers#Writer()
 command! GenerateAccessor     :call generate#accessors#Accessor()
 command! GeneratePrivateVar   :call generate#variables#PrivateVars()
-command! GenerateProtectedVar :call generate#variables#PublicVars()
-command! GeneratePublicVar    :call generate#variables#ProtectedVars()
+command! GenerateProtectedVar :call generate#variables#ProtectedVars()
+command! GeneratePublicVar    :call generate#variables#PublicVars()
 
 nnoremap <leader>ga :GenerateAccessor<cr>
 nnoremap <leader>gg :GenerateGetter<cr>

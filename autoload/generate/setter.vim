@@ -1,14 +1,14 @@
 echom 'Autoloading...'
-function! generate#getter#Setter()
+function! generate#setter#Setter()
   let save_pos = getpos('.')
+  try
     let l:func = general#get_input()
-
-  if !exists('l:func') || empty(l:func)
-    echo 'invalid method name'
+  catch
+    echo v:exception
     return
-  endif
+  endtry
 
-  :execute 'normal [[][k'
+  :call general#go_to_position(g:ruby_generatePositions.setter)
   let start_line_number = line('.')
   let l:getter = [
         \ '',
@@ -17,6 +17,7 @@ function! generate#getter#Setter()
         \ 'end',
         \ ]
   call append(line('.'), l:getter)
-  exec 'normal ' . (start_line_number+2) . 'GV' . len(start_line_number+4) . 'j='
+  let l:len = len(l:getter)
+  exec 'normal ' . l:len . '=j'
   call setpos('.', save_pos)
 endfunction
