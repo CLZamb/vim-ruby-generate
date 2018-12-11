@@ -8,19 +8,21 @@ if exists('g:loaded_ruby_generate')
 endif
 
 let g:loaded_ruby_generate = 1
-:call general#RubyGenerateSetUpVariables()
+call general#RubyGenerateSetUpVariables()
 
-command! GenerateGetter       :call generate#getter#Getter()
-command! GenerateMethod       :call generate#method#Method()
-command! GenerateSetter       :call generate#setter#Setter()
-command! GenerateReader       :call generate#readers#Reader()
-command! GenerateWriter       :call generate#writers#Writer()
-command! GenerateAccessor     :call generate#accessors#Accessor()
-command! GeneratePrivateVar   :call generate#variables#PrivateVars()
-command! GenerateProtectedVar :call generate#variables#ProtectedVars()
-command! GeneratePublicVar    :call generate#variables#PublicVars()
+command! GenerateInitialization :call generate#initialization#Initialization()
+command! GenerateMethod         :call generate#method#Method()
+command! GenerateGetter         :call generate#getter#Getter()
+command! GenerateSetter         :call generate#setter#Setter()
+command! GenerateReader         :call generate#readers#Reader()
+command! GenerateWriter         :call generate#writers#Writer()
+command! GenerateAccessor       :call generate#accessors#Accessor()
+command! GeneratePrivateVar     :call generate#variables#PrivateVars()
+command! GenerateProtectedVar   :call generate#variables#ProtectedVars()
+command! GeneratePublicVar      :call generate#variables#PublicVars()
 
 nnoremap <leader>gm :GenerateMethod<cr>
+nnoremap <leader>gi :GenerateInitialization<cr>
 nnoremap <leader>ga :GenerateAccessor<cr>
 nnoremap <leader>gg :GenerateGetter<cr>
 nnoremap <leader>gr :GenerateReader<cr>

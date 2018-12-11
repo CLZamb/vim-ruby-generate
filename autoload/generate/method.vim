@@ -3,13 +3,13 @@ echom 'Autoloading...'
 function! generate#method#Method()
   let save_pos = getpos('.')
   try
-    let l:funcs = general#get_input()
+    let l:funcs = general#get_input('method name: ')
   catch
     echo v:exception
     return
   endtry
 
-  call general#go_to_position(g:ruby_generate_positions.getter)
+  call general#go_to_position(g:ruby_generate_positions.method)
   let start_line_number = line('.')
   let l:getter = [
         \ '',

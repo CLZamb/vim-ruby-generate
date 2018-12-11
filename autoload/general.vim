@@ -1,5 +1,5 @@
-function! general#get_input()
-  let methods = input('method name: ')
+function! general#get_input(message)
+  let methods = input(a:message)
 
   if !exists('methods') || empty(methods)
     throw 'invalid method name'
@@ -11,8 +11,8 @@ endfunction
 
 " Set up some common global/buffer variables.
 function! general#RubyGenerateSetUpVariables()
-  " Path to coffee executable
- let g:ruby_generate_positions = {
+  " default values
+  let s:ruby_generate_positions = {
         \ 'getter':        'bottom',
         \ 'setter':        'bottom',
         \ 'writer':        'top',
@@ -21,7 +21,21 @@ function! general#RubyGenerateSetUpVariables()
         \ 'publicVars':    'bottom',
         \ 'privateVars':   'bottom',
         \ 'protectedVars': 'bottom',
+        \ 'method':        'bottom',
         \ }
+
+  " if the user does not override any value copy the default local dictionary
+  if !exists('g:ruby_generate_positions')
+    let g:ruby_generate_positions = s:ruby_generate_positions
+  " if the user defined some values add the missing with the default
+  " dictionary
+  else
+    for key in keys(s:ruby_generate_positions)
+       if !exists('g:ruby_generate_positions.' . key)
+         let g:ruby_generate_positions[key] = s:ruby_generate_positions[key]
+       endif
+    endfor
+  endif
 endfunction
 
 function! general#go_to_position(position)

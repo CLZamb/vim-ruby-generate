@@ -1,8 +1,9 @@
 echom 'Autoloading_getter...'
-function! generate#getter#Getter()
+function! generate#initialization#Initialization()
+  l:string = 'indentation variables'
   let save_pos = getpos('.')
   try
-    let l:func = general#get_input('method name: ')
+    let l:funcs = general#get_input('variables')
   catch
     echo v:exception
     return
@@ -12,8 +13,7 @@ function! generate#getter#Getter()
   let start_line_number = line('.')
   let l:getter = [
         \ '',
-        \ 'def ' . l:func,
-        \ '@' . l:func,
+        \ 'def initialization(' . l:funcs .')',
         \ 'end',
         \ ]
   call append(line('.'), l:getter)

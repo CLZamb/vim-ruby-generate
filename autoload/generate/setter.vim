@@ -2,7 +2,7 @@ echom 'Autoloading...'
 function! generate#setter#Setter()
   let save_pos = getpos('.')
   try
-    let l:func = general#get_input()
+    let l:func = general#get_input('method name:')
   catch
     echo v:exception
     return

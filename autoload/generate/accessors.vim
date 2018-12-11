@@ -4,7 +4,7 @@ function! generate#accessors#Accessor()
 
   let save_pos = getpos('.')
   try
-    let l:funcs = general#get_input()
+    let l:funcs = general#get_input('method(s) name(s): ')
   catch
     echo v:exception
     return

@@ -2,7 +2,7 @@ echom 'Autoloading...'
 function! generate#readers#Reader()
   let save_pos = getpos('.')
   try
-    let l:funcs = general#get_input()
+    let l:funcs = general#get_input('method(s) names(s): ')
   catch
     echo v:exception
     return
