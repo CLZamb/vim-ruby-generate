@@ -4,19 +4,15 @@ function! generate#accessors#Accessor()
 
   let save_pos = getpos('.')
   try
-    let l:func = general#get_input()
+    let l:funcs = general#get_input()
   catch
     echo v:exception
     return
   endtry
 
-  :call general#go_to_position(g:ruby_generatePositions.accessor)
-  let start_line_number = line('.')
-  let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
-  let l:setter = [
-        \ 'attr_accessor ' . l:temp,
-        \ ]
-  call append(line('.'), l:setter)
-  exec 'normal =j'
+
+  let l:accessor = 'attr_accessor'
+  call general#search_in_block(l:accessor)
+  call general#append_code(l:accessor, l:funcs, g:ruby_generate_positions.accessor)
   call setpos('.', save_pos)
 endfunction

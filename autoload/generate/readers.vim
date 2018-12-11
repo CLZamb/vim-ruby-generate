@@ -2,19 +2,15 @@ echom 'Autoloading...'
 function! generate#readers#Reader()
   let save_pos = getpos('.')
   try
-    let l:func = general#get_input()
+    let l:funcs = general#get_input()
   catch
     echo v:exception
     return
   endtry
 
-  :call general#go_to_position(g:ruby_generatePositions.reader)
-  let start_line_number = line('.')
-  let l:temp = substitute(l:func, '\(\w\+\)', ':\1', 'g')
-  let l:setter = [
-        \ 'attr_reader ' . l:temp,
-        \ ]
-  call append(line('.'), l:setter)
-  exec 'normal =j'
+  :execute 'normal [['
+  let l:reader = 'attr_reader'
+  call general#search_in_block(l:reader)
+  call general#append_code(l:reader, l:funcs, g:ruby_generate_positions.reader)
   call setpos('.', save_pos)
 endfunction

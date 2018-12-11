@@ -1,8 +1,9 @@
-echom 'Autoloading_getter...'
-function! generate#getter#Getter()
+echom 'Autoloading...'
+
+function! generate#method#Method()
   let save_pos = getpos('.')
   try
-    let l:func = general#get_input()
+    let l:funcs = general#get_input()
   catch
     echo v:exception
     return
@@ -12,12 +13,13 @@ function! generate#getter#Getter()
   let start_line_number = line('.')
   let l:getter = [
         \ '',
-        \ 'def ' . l:func,
-        \ '@' . l:func,
+        \ 'def ' . l:funcs,
         \ 'end',
         \ ]
   call append(line('.'), l:getter)
   let l:len = len(l:getter)
   exec 'normal ' . l:len . '=j'
-  call setpos('.', save_pos)
+  exec "normal 2jo\<Space>\<BS>\<Esc>"
+  startinsert!
+  "call setpos('.', save_pos)
 endfunction

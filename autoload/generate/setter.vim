@@ -8,7 +8,7 @@ function! generate#setter#Setter()
     return
   endtry
 
-  :call general#go_to_position(g:ruby_generatePositions.setter)
+  :call general#go_to_position(g:ruby_generate_positions.setter)
   let start_line_number = line('.')
   let l:getter = [
         \ '',
