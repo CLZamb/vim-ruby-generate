@@ -1,3 +1,5 @@
+:construction: __NOTE:__ vimrg is a work-in-progress and in active development! :construction:
+
 Ruby Generate.vim
 ===============
 
